@@ -1,0 +1,26 @@
+{
+  "name": "bamazon",
+  "version": "1.0.0",
+  "description": "mysql app",
+  "main": "bamazon.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GRamirez2/bamazon.git"
+  },
+  "keywords": [
+    "mysql"
+  ],
+  "author": "George Ramirez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GRamirez2/bamazon/issues"
+  },
+  "homepage": "https://github.com/GRamirez2/bamazon#readme",
+  "dependencies": {
+    "inquirer": "^1.2.2",
+    "mysql": "^2.11.1"
+  }
+}
