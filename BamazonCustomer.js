@@ -42,14 +42,19 @@ var init = function(){
 var begin = function (){
     
     inquirer.prompt({
+
+                type : 'input',
                 name : "id",
                 message : "Enter the ID=(number) for the item you would like to purchase."
+                
             }).then(function(answer){
                     //console.log(answer.id)
                     var id = answer.id;
                     inquirer.prompt({
+
                         name : "quanity",
-                        message : "How many would you like to buy?"
+                        message : "Excellent choice! How many would you like to buy?"
+
                     }).then(function(answer2){
                             var quanity = answer2.quanity
                             // console.log(quanity)
@@ -62,7 +67,7 @@ var begin = function (){
                                 if (quanity <= quanityNum){
                                     buy(id, quanityNum, quanity);
                                 }else{
-                                    console.log ("Sorry, but our inventory appears to be low on this item. We can not fullfill your request. Try another item her is the list again")
+                                    console.log ("\n********** OH NO! ***********\nSorry, but our inventory appears to be low on this item. We can not fullfill your request.\n Please select fewer items for your order or another item")
                                     init();
                                 };
                             });
@@ -87,7 +92,9 @@ function buy (id, quanityNum, quanity){
     var select = 'SELECT Price FROM products WHERE ?'
     connection.query(select,{itemID : id}, function(err, res){
         if (err) throw err;
-        console.log("Your order total is "+res[0].Price);
+        var priceEach = res[0].Price;
+        var totalPrice = priceEach * quanity
+        console.log("Your order total is "+totalPrice);
         return;
         });
 
