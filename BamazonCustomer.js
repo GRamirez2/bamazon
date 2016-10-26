@@ -46,15 +46,25 @@ var begin = function (){
                 type : 'input',
                 name : "id",
                 message : "Enter the ID=(number) for the item you would like to purchase."
+<<<<<<< HEAD
 
                 },
                 {
                 name : "quanity",
                 message : "Excellent choice! How many would you like to buy?"
+=======
+                },
+                {
+
+                        name : "quanity",
+                        message : "Excellent choice! How many would you like to buy?"
+
+>>>>>>> 1c4ec3ecb1e9c917cd13a033c3eef7adf9d0e383
                 
             }]).then(function(answer){
                     //console.log(answer.id)
                     var id = answer.id;
+<<<<<<< HEAD
                     var quanity = answer.quanity
                     // console.log(quanity)
                     var query = 'SELECT StockQuantity FROM products WHERE?' 
@@ -63,6 +73,22 @@ var begin = function (){
                         // console.log(res[0].StockQuantity)
                         var quanityNum = parseInt(res[0].StockQuantity);
                         // console.log("quantityNum = "+quanityNum)
+=======
+                    // inquirer.prompt({
+
+                    //     name : "quanity",
+                    //     message : "Excellent choice! How many would you like to buy?"
+
+                    // }).then(function(answer2){
+                            var quanity = answer2.quanity
+                            // console.log(quanity)
+                            var query = 'SELECT StockQuantity FROM products WHERE?' 
+                            connection.query(query,{itemID : id}, function(err, res){
+                                if (err) throw err;
+                                // console.log(res[0].StockQuantity)
+                                var quanityNum = parseInt(res[0].StockQuantity);
+                                // console.log("quantityNum = "+quanityNum)
+>>>>>>> 1c4ec3ecb1e9c917cd13a033c3eef7adf9d0e383
                                 if (quanity <= quanityNum){
                                     buy(id, quanityNum, quanity);
                                 }else{
