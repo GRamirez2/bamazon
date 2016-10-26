@@ -112,14 +112,35 @@ function lowInventory(){
                     console.log('Item= '+item.ProductName+', Stock Quantity= '+itemStock+'\n')
                 }
         })
-        console.log("=========================LOW INVENTORY Items=========================\n")
+        console.log("=====================END LOW INVENTORY Items =========================\n")
         begin();
     })
 }
 
 function addInventory(){
-    console.log('this is the addInventory function');
-    connection.end();
+    // console.log('this is the addInventory function');
+     connection.query('SELECT ProductName FROM Products', function (err, res){
+    if (err) throw err;
+    inquirer.prompt({
+
+                type : 'list',
+                name : "product",
+                // message : "What PRODUCT would you like to add Inventory to?",
+                choices : function (value){
+                        var choicesArr = [];
+                            for(var i = 0; i<res.length;i++){
+                                choicesArr.push(res[i].ProductName);
+                                }//end of loop
+                                // console.log(choicesArr);
+                                return choicesArr;
+                        },//end of choice function  
+                message : "What PRODUCT would you like to add Inventory to?" 
+                            }).then(function(answer){
+                                console.log('checking for list')
+
+                            })
+            })//end of query
+    // connection.end();
 }
 
 function addProduct(){
