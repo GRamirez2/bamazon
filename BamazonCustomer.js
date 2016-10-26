@@ -41,29 +41,28 @@ var init = function(){
 // Begin app if connection ok with no errors
 var begin = function (){
     
-    inquirer.prompt({
+    inquirer.prompt([{
 
                 type : 'input',
                 name : "id",
                 message : "Enter the ID=(number) for the item you would like to purchase."
+
+                },
+                {
+                name : "quanity",
+                message : "Excellent choice! How many would you like to buy?"
                 
-            }).then(function(answer){
+            }]).then(function(answer){
                     //console.log(answer.id)
                     var id = answer.id;
-                    inquirer.prompt({
-
-                        name : "quanity",
-                        message : "Excellent choice! How many would you like to buy?"
-
-                    }).then(function(answer2){
-                            var quanity = answer2.quanity
-                            // console.log(quanity)
-                            var query = 'SELECT StockQuantity FROM products WHERE?' 
-                            connection.query(query,{itemID : id}, function(err, res){
-                                if (err) throw err;
-                                // console.log(res[0].StockQuantity)
-                                var quanityNum = parseInt(res[0].StockQuantity);
-                                // console.log("quantityNum = "+quanityNum)
+                    var quanity = answer.quanity
+                    // console.log(quanity)
+                    var query = 'SELECT StockQuantity FROM products WHERE?' 
+                    connection.query(query,{itemID : id}, function(err, res){
+                        if (err) throw err;
+                        // console.log(res[0].StockQuantity)
+                        var quanityNum = parseInt(res[0].StockQuantity);
+                        // console.log("quantityNum = "+quanityNum)
                                 if (quanity <= quanityNum){
                                     buy(id, quanityNum, quanity);
                                 }else{
@@ -71,7 +70,7 @@ var begin = function (){
                                     init();
                                 };
                             });
-                    });//end of answer2 promise
+                    // });//end of answer2 promise
             });//end of answer promise
 
 };//end of begin function
