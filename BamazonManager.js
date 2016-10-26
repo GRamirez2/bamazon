@@ -121,11 +121,10 @@ function addInventory(){
     // console.log('this is the addInventory function');
      connection.query('SELECT ProductName FROM Products', function (err, res){
     if (err) throw err;
-    inquirer.prompt({
+    inquirer.prompt([{
 
                 type : 'list',
-                name : "product",
-                // message : "What PRODUCT would you like to add Inventory to?",
+                name : 'product',
                 choices : function (value){
                         var choicesArr = [];
                             for(var i = 0; i<res.length;i++){
@@ -135,8 +134,14 @@ function addInventory(){
                                 return choicesArr;
                         },//end of choice function  
                 message : "What PRODUCT would you like to add Inventory to?" 
-                            }).then(function(answer){
-                                console.log('checking for list')
+            },
+            {
+                type : 'input',
+                name : 'amount',
+                message : 'How many items would you add to add to the inventory'
+                            }]).then(function(answer){
+                                var productChoice = answer.product 
+                                
 
                             })
             })//end of query
