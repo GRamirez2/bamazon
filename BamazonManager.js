@@ -162,6 +162,37 @@ function addInventory(){
 }
 
 function addProduct(){
-    console.log('this is the addProduct function');
-}
+    // console.log('this is the addProduct function');
+    inquirer.prompt([{
+                
+                type : 'input',
+                name : 'department',
+                message : "What DEPARTMENT would you like to ADD Inventory?" 
+            },
+            {
+
+                type : 'input',
+                name : 'product',
+                message : "What PRODUCT would you like to ADD to the Inventory?" 
+            },
+            {
+                type : 'input',
+                name : 'amount',
+                message : 'How many of these items would you add to ADD to the Inventory?'
+            },
+            {
+                type : 'input',
+                name : 'cost',
+                message : 'How much will each of these items cost?'
+            
+                            }]).then(function(answer){
+                                connection.query('INSERT INTO Products (ProductName, DepartmentName, Price, StockQuantity) VALUES ("'+answer.product+'", "'+answer.department+'", '+answer.cost+', '+answer.amount+')'), function (err,res){
+                                            if (err) throw err;
+                                            
+                                            
+                                };//end of connection
+                                forSale ();
+                            });//end of promise
+
+}//end of addProduct function
 
