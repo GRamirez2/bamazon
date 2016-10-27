@@ -119,7 +119,7 @@ function lowInventory(){
 
 function addInventory(){
     // console.log('this is the addInventory function');
-     connection.query('SELECT ProductName FROM Products', function (err, res){
+    connection.query('SELECT ProductName FROM Products', function (err, res){
     if (err) throw err;
     inquirer.prompt([{
 
@@ -142,21 +142,21 @@ function addInventory(){
                             }]).then(function(answer){
                                 var productChoice = answer.product;
                                 var productNumber = answer.amount;
-                                var query = 'UPDATE Products SET ? WHERE ?'
-                                connection.query(query,[{StockQuantity : productNumber},{ProductName : productChoice}], function(err,res){
+                               
+                                var query = 'UPDATE Products SET StockQuantity = StockQuantity +'+ productNumber+' WHERE ?'
+                                connection.query(query,{ProductName : productChoice}, function(err,res){
                                     if (err) throw err;
                                     console.log('PRODUCT '+productChoice+' inventory has been updated, the new total is below.')
                                         var query2 = 'SELECT ProductName, StockQuantity FROM products WHERE ?'
                                         connection.query(query2,{ProductName : productChoice}, function (err,res){
                                             if (err) throw err;
                                             console.log(res[0].ProductName+" NEW INVENTORY AMOUNT = "+res[0].StockQuantity);
-
+                                            begin();
                                         })//select query end
-
+                                        
                                 });//connection update end 
-                                
-
                             })
+                
             })//end of query
     // connection.end();
 }
