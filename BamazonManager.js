@@ -140,7 +140,20 @@ function addInventory(){
                 name : 'amount',
                 message : 'How many items would you add to add to the inventory'
                             }]).then(function(answer){
-                                var productChoice = answer.product 
+                                var productChoice = answer.product;
+                                var productNumber = answer.amount;
+                                var query = 'UPDATE Products SET ? WHERE ?'
+                                connection.query(query,[{StockQuantity : productNumber},{ProductName : productChoice}], function(err,res){
+                                    if (err) throw err;
+                                    console.log('PRODUCT '+productChoice+' inventory has been updated, the new total is below.')
+                                        var query2 = 'SELECT ProductName, StockQuantity FROM products WHERE ?'
+                                        connection.query(query2,{ProductName : productChoice}, function (err,res){
+                                            if (err) throw err;
+                                            console.log(res[0].ProductName+" NEW INVENTORY AMOUNT = "+res[0].StockQuantity);
+
+                                        })//select query end
+
+                                });//connection update end 
                                 
 
                             })
